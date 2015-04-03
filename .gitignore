@@ -1,0 +1,8 @@
+#Mac OS X files
+.DS_Store
+
+#Linux files
+.directory
+
+.idea
+node_modules
