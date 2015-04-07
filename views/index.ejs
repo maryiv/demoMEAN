@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/css/app.css' />
+        <link rel='stylesheet' href='/vendor/bower_components/bootstrap/dist/css/bootstrap.min.css' />
+        <script type="application/javascript" src="/vendor/bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="application/javascript" src="/vendor/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </head>
+    <body cz-shortcut-listen="true">
+        <div class="container">
+            <div class="header clearfix">
+                <nav>
+                    <ul class="nav nav-pills pull-right">
+                        <li role="presentation" class="active"><a href="#">Login</a></li>
+                        <li role="presentation"><a href="#">Logout</a></li>
+                    </ul>
+                </nav>
+                <h3 class="text-muted">Welcome to <%= title %></h3>
+            </div>
+        </div>
+    </body>
 </html>
