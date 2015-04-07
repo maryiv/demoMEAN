@@ -7,7 +7,6 @@ var config = require('config');
 var logger = require('morgan');
 var log = require('libs/log')(module);
 var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -25,7 +24,6 @@ app.use(cookieParser(config.get('cryptKey')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
