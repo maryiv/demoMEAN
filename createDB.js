@@ -1,6 +1,5 @@
 var mongoose = require('libs/mongoose');
 var async = require('async');
-var Photo = require('models/photo').Photo;
 
 function open(callback) {
     mongoose.connection.on('open', callback);
@@ -11,27 +10,45 @@ function dropDatabase(callback) {
     db.dropDatabase(callback);
 }
 
-function createPhotos(callback) {
+function reqiereModels(callback) {
+    require('models/user');
+    require('models/photo');
+    async.each(Object.keys(mongoose.models), function(modelName, callback) {
+        mongoose.models[modelName].ensureIndexes(callback);
+    }, callback);
+}
+
+function createUsers(callback) {
     var users = [
+        {name: 'admin', password: 'secret'},
+        {name: 'user', password: 'test'}
+    ];
+    async.each(users, function(userData, callback) {
+        var user = new mongoose.models.User(userData);
+        user.save(callback);
+    }, callback);
+}
+
+function createPhotos(callback) {
+    var photos = [
         {name: 'demo-1.jpg', main: true, show: true},
         {name: 'demo-2.png', main: false, show: true},
         {name: 'demo-3.jpg', main: false, show: true}
     ];
-    async.each(users, function(userData, callback) {
-        var photo = new Photo(userData);
+    async.each(photos, function(photoData, callback) {
+        var photo = new mongoose.models.Photo(photoData);
         photo.save(callback);
     }, callback);
-}
-
-function close() {
-    mongoose.disconnect();
 }
 
 async.series([
     open,
     dropDatabase,
-    createPhotos,
-    close
+    reqiereModels,
+    createUsers,
+    createPhotos
 ], function(err) {
     console.log(arguments);
+    mongoose.disconnect();
+    process.exit(err ? 255 : 0);
 });
