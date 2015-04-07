@@ -11,17 +11,6 @@ var users = require('./routes/users');
 
 var app = express();
 
-var MongoClient = require('mongodb').MongoClient,
-    assert = require('assert');
-
-var url = 'mongodb://localhost:27017/gallary';
-
-MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    log.info("Connected correctly to server");
-    db.close();
-});
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -32,7 +21,7 @@ app.listen(config.get('port'), function() {
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser(config.get('crypKey')));
+app.use(cookieParser(config.get('cryptKey')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
